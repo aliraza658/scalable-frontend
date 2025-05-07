@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import PhotoCard from '../components/PhotoCard';
@@ -37,13 +37,13 @@ export default function ConsumerPage() {
 
   return (
     <div className="container mx-auto p-4">
+      {/* Top Navigation */}
       <header className="w-full flex justify-between items-center mb-10">
         <Link href="/" className="text-5xl font-extrabold text-white hover:text-gray-300">
           PhotoShare
         </Link>
         {user && (
           <div className="flex space-x-8">
-            {/* Check if the user is an Admin */}
             {user.role === 'admin' && (
               <Link
                 href="/creator"
@@ -52,8 +52,6 @@ export default function ConsumerPage() {
                 Creator View
               </Link>
             )}
-
-            {/* Consumer View is always visible */}
             <Link
               href="/consumer"
               className="bg-green-600 text-black px-6 py-3 rounded-lg text-xl font-semibold hover:bg-green-700 transition duration-300"
@@ -64,17 +62,19 @@ export default function ConsumerPage() {
         )}
       </header>
 
+      {/* Title */}
       <header className="mb-6 text-center">
         <h2 className="text-4xl font-extrabold text-gray-800">Explore Stunning Photos</h2>
         <p className="text-lg text-gray-600">Browse through our collection of beautiful images</p>
       </header>
 
+      {/* Loader or Grid */}
       {loading ? (
         <div className="flex justify-center items-center">
           <div className="animate-spin rounded-full border-t-4 border-blue-500 h-16 w-16"></div>
         </div>
       ) : (
-        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <section className="grid grid-cols-3 gap-6">
           {photos.map((photo) => (
             <PhotoCard key={photo.id} photo={photo} />
           ))}
